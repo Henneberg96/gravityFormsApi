@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Orders Prompt</title>
+</head>
+<body>
+
+<script>
+    // Function to prompt the user and send the answer to the server
+    function promptUser() {
+        var answer = prompt('What do you think about the new orders?');
+        fetch('/processAnswer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ answer: answer })
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Call the promptUser function when the page loads
+    window.onload = promptUser;
+</script>
+
+</body>
+</html>
